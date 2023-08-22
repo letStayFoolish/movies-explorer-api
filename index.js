@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const { PORT, DB_ADDRESS } = require('./config');
 const routes = require('./routes')
 const { errors } = require("celebrate");
+const errorsHandler = require('./middlewares/errorsHandler')
 
 mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,
@@ -30,6 +31,6 @@ app.get('/', (req, res) => {
 app.use(routes)
 // Errors
 app.use(errors())
-// ErrorsHandlers
-// app.use(errorsHandlers)
+// ErrorsHandler
+app.use(errorsHandler)
 app.listen(PORT, () => console.log(`Server is running on port: ${PORT}`));
