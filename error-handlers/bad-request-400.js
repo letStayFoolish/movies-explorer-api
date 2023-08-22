@@ -5,5 +5,4 @@ class BadRequest400 extends Error {
   }
 }
 
-
 module.exports = BadRequest400

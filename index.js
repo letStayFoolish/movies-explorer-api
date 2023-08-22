@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose').default;
 const bodyParser = require('body-parser');
 const cookies = require('cookie-parser');
 const cors = require('cors')
@@ -22,7 +22,7 @@ app.use(helmet());
 app.use(cookies());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+// @todo add limiter here
 // Routes
 // Testing @todo remove 27-29
 app.get('/', (req, res) => {

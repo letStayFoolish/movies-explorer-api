@@ -46,13 +46,12 @@ const updateUser = (req, res, next) => {
       if (error.name === 'ValidationError') {
         return next(new BadRequest400('Переданы некорректные данные при обновлении профиля.'))
       }
-      if (error.code = 11000) {
+      if (error.code === 11000) {
         return next(new RequestConflict409('Пользователь с таким емайлом уже существует'))
       }
       // Status 500:
       return next(error)
     })
 }
-
 
 module.exports = {getCurrentUser, updateUser}

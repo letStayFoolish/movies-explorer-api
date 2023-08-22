@@ -63,29 +63,27 @@ const addMovieToFavorites = (req, res, next) => {
 
 // Delete Movie(id):
 const deleteMovieFromFavorites = (req, res, next) => {
-  const { movieId } = req.params
+  const { _id } = req.params
 
-  return Movie.findById(movieId)
+  return Movie.findById(_id)
     .then((movie) => {
       if (!movie) {
         // Status 404:
-        throw new NotFound404(`Фильм с указанным _id: ${movieId} не найден.`)
+        throw new NotFound404(`Фильм с указанным _id: ${_id} не найден.`)
       }
       const owner = String(movie.owner)
       if (owner !== req.user._id) {
         throw new RequestForbidden403('Нет прав для удаления данного фильма.')
       }
-
-      return Movie.findByIdAndDelete(movieId)
-        // Status 200:
-        .then((movies) => res.json(movies))
-        // Status 500:
-        .catch(next)
+      return movie.deleteOne()
+    })
+    .then((movie) => {
+      res.send({ movie })
     })
     .catch((error) => {
       if (error.name === 'CastError') {
         // Status 400:
-        throw new BadRequest400('Переданы некорректные данные для удаления фильма из избранного.')
+        return next(new BadRequest400('Переданы некорректные данные для удаления фильма из избранного.'))
       }
       // Status 500:
       return next(error)
