@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { URL_REGEX } = require('../utils/regex')
-const { celebrate, Joi } = require('celebrate')
-const { getMovies, addMovieToFavorites, deleteMovieFromFavorites } = require('../controllers/users')
+const {URL_REGEX} = require('../utils/regex')
+const {celebrate, Joi} = require('celebrate')
+const {getMovies, addMovieToFavorites, deleteMovieFromFavorites} = require('../controllers/users')
 // GET: Movies From user's Favorites
 router.get('/', getMovies)
 // POST: Add Movie To Favorites
@@ -19,7 +19,7 @@ router.post('/', celebrate({
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   })
-}) ,addMovieToFavorites)
+}), addMovieToFavorites)
 // DELETE: Remove Movie From Favorites
 router.delete('/:_id', celebrate({
   params: Joi.object().keys({

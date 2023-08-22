@@ -4,9 +4,9 @@ const bodyParser = require('body-parser');
 const cookies = require('cookie-parser');
 const cors = require('cors')
 const helmet = require('helmet');
-const { PORT, DB_ADDRESS } = require('./config');
+const {PORT, DB_ADDRESS} = require('./config');
 const routes = require('./routes')
-const { errors } = require("celebrate");
+const {errors} = require("celebrate");
 const errorsHandler = require('./middlewares/errorsHandler')
 
 mongoose.connect(DB_ADDRESS, {
@@ -21,7 +21,7 @@ app.use(cors())
 app.use(helmet());
 app.use(cookies());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Routes
 // Testing @todo remove 27-29
