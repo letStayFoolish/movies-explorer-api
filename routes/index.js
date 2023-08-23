@@ -4,10 +4,12 @@ const NotFound404 = require('../error-handlers/not-found-404')
 const usersRoutes = require('./users')
 const moviesRoutes = require('./movies')
 const signupRoute = require('./sign-up')
+const loginRoute = require('./sign-in')
+const {authentication} = require("../middlewares/auth");
 // Sign-up / Log in
 router.use('/signup', signupRoute)
-// router.use('/', loginRoute)
-
+router.use('/signin', loginRoute)
+router.use(authentication)
 // After successful log in or registration:
 router.use('/users', usersRoutes)
 router.use('/movies', moviesRoutes)
