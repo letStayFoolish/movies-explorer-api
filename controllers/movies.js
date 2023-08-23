@@ -8,8 +8,9 @@ const RequestForbidden403 = require("../error-handlers/request-forbidden-403");
 // @todo need to get only movies added by current user!!! For now, get all movies from the server
 const getMovies = async (req, res, next) => {
   try {
-    const movies = await Movie.find({})
+    const owner = req.user._id
 
+    const movies = await Movie.find({ owner })
     // Status 200:
     res.send(movies)
 
