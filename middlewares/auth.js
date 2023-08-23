@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken')
-const { JWT_SECRET_KEY } = require('../config')
+const { JWT_SECRET_KEY, NODE_ENV } = require('../config')
 const RequestUnauthorized401 = require("../error-handlers/request-unauthorized-401");
 
 const generateToken = (payload) => {
-  return jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '7d' })
+  return jwt.sign(payload, NODE_ENV === 'production' ? JWT_SECRET_KEY : 'secret-key', { expiresIn: '7d' })
 }
 
 const authentication = (req, res, next) => {
@@ -29,7 +29,7 @@ const checkToken = (token) => {
     throw new RequestUnauthorized401('Недостаточно прав для выполнения операции.')
   }
   try {
-    return jwt.verify(token, JWT_SECRET_KEY)
+    return jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET_KEY : 'secret-key')
   } catch (error) {
     throw error
   }
