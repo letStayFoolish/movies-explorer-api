@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const limiter = require('./utils/limiter')
 const {PORT, DB_ADDRESS} = require('./config');
 const routes = require('./routes')
+const { requestLogger, errorLogger } = require('./middlewares/logger')
 const {errors} = require("celebrate");
 const errorsHandler = require('./middlewares/errorsHandler')
 
@@ -23,9 +24,13 @@ app.use(helmet());
 app.use(cookies());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+// Collecting requests logger
+app.use(requestLogger)
 app.use(limiter)
 // Routes
 app.use(routes)
+// Collecting errors logger
+app.use(errorLogger)
 // Errors
 app.use(errors())
 // ErrorsHandler
