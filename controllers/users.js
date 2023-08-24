@@ -11,7 +11,7 @@ const getCurrentUser = async (req, res, next) => {
 
     if (!user) {
       // Status 404:
-      throw new NotFound404(`Пользователь по указанному id: ${userId} не найден.`)
+      return next(new NotFound404(`Пользователь по указанному id: ${userId} не найден.`))
     }
     // Status 200:
     res.json(user)
@@ -40,7 +40,7 @@ const updateUser = async (req, res, next) => {
 
     if (!user) {
       // Status 404:
-      throw new NotFound404(`Пользователь с указанным id: ${userId} не найден.`)
+      return next(new NotFound404(`Пользователь с указанным id: ${userId} не найден.`))
     }
     // Status 200:
     res.send(user)

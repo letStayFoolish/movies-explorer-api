@@ -5,7 +5,6 @@ const RequestForbidden403 = require("../error-handlers/request-forbidden-403");
 
 
 // Get All User's Movies:
-// @todo need to get only movies added by current user!!! For now, get all movies from the server
 const getMovies = async (req, res, next) => {
   try {
     const owner = req.user._id
@@ -71,24 +70,24 @@ const deleteMovieFromFavorites = async (req, res, next) => {
     const { _id } = req.params
 
     const movie = await Movie.findById(_id)
-
+    // Status 404:
     if (!movie) {
-      // Status 404:
-      throw new NotFound404(`Фильм с указанным _id: ${_id} не найден.`)
+      return next(new NotFound404(`Фильм с указанным _id: ${_id} не найден.`))
     }
-
+    // if movie:
     const owner = String(movie.owner)
 
+    // Status 403:
     if (owner !== req.user._id) {
-      throw new RequestForbidden403('Нет прав для удаления данного фильма.')
+      return next(new RequestForbidden403('Нет прав для удаления данного фильма.'))
     }
 
     await movie.deleteOne()
 
     res.send({ movie })
   } catch (error) {
+    // Status 400:
     if (error.name === 'CastError') {
-      // Status 400:
       return next(new BadRequest400('Переданы некорректные данные для удаления фильма из избранного.'))
     }
 
