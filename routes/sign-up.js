@@ -1,13 +1,7 @@
-const router = require('express').Router()
-const { celebrate, Joi } = require('celebrate')
-const { createUser } = require('../controllers/sign-up')
+const router = require('express').Router();
+const { createUser } = require('../controllers/sign-up');
+const { signUpValidation } = require('../middlewares/validation');
 
-router.post('/', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(4),
-    name: Joi.string().required().min(2).max(30),
-  })
-}), createUser)
+router.post('/', signUpValidation, createUser);
 
-module.exports = router
+module.exports = router;

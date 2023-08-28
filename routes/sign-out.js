@@ -1,7 +1,7 @@
-const router = require('express').Router()
+const router = require('express').Router();
 
-router.get('/', (req, res, next) => {
-  res.clearCookie('jwt').send({ message: 'Выход' })
-})
+router.get('/', (req, res) => {
+  res.clearCookie('jwt').send({ message: 'Выход' });
+});
 
-module.exports = router
+module.exports = router;

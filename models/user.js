@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 const validator = require('validator');
-const RequestUnauthorized401 = require("../error-handlers/request-unauthorized-401");
+const RequestUnauthorized401 = require('../error-handlers/request-unauthorized-401');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -25,7 +25,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     minLength: 2,
     maxLength: 30,
-    default: 'Александр',
   },
 });
 
@@ -34,17 +33,17 @@ userSchema.statics.findUserByCredentials = function (email, password) {
     .then((user) => {
       // Status 401:
       if (!user) {
-        throw new RequestUnauthorized401('Неправильные почта или пароль')
+        throw new RequestUnauthorized401('Неправильные почта или пароль');
       }
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           // Status 401:
           if (!matched) {
-            throw new RequestUnauthorized401('Неправильные почта или пароль')
+            throw new RequestUnauthorized401('Неправильные почта или пароль');
           }
-          return user
-        })
-    })
-}
+          return user;
+        });
+    });
+};
 
 module.exports = mongoose.model('user', userSchema);
