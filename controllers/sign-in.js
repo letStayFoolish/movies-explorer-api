@@ -18,9 +18,9 @@ const login = (req, res, next) => {
         sameSite: true,
         maxAge: 3600000 * 24 * 7,
       });
-      res.json({ token });
+      res.json({ token, name: user.name, email: user.email });
     })
-  // Status 500:
+    // Status 500:
     .catch(next);
 };
 

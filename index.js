@@ -18,7 +18,7 @@ mongoose.connect(DB_ADDRESS, {
   .catch((err) => console.error(err));
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
 // Setup
 app.use(helmet());
 app.use(cookies());
