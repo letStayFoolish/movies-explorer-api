@@ -18,7 +18,12 @@ mongoose.connect(DB_ADDRESS, {
   .catch((err) => console.error(err));
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
+app.use(cors({ origin:
+    [
+  'http://localhost:3001',
+      'https://more-movies.nomoredom.nomoredomainsicu.ru/',
+      'https://more-movies.nomoredom.nomoredomainsicu.ru/'
+    ], credentials: true }));
 // Setup
 app.use(helmet());
 app.use(cookies());
