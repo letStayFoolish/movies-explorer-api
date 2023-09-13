@@ -18,24 +18,15 @@ mongoose.connect(DB_ADDRESS, {
   .catch((err) => console.error(err));
 
 const app = express();
-// app.use(cors({
-//   origin:
-//     [
-//       'http://localhost:3001',
-//       'https://more-movies.nomoredom.nomoredomainsicu.ru',
-//       'http://more-movies.nomoredom.nomoredomainsicu.ru'
-//     ],
-//   credentials: true,
-// }))
-
 app.use(cors({
   origin:
     [
-      'http://example.com',
+      'http://localhost:3001',
+      'https://more-movies.nomoredom.nomoredomainsicu.ru',
+      'http://more-movies.nomoredom.nomoredomainsicu.ru'
     ],
   credentials: true,
 }))
-
 
 // Setup
 app.use(helmet());
