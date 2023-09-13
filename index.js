@@ -18,7 +18,6 @@ mongoose.connect(DB_ADDRESS, {
   .catch((err) => console.error(err));
 
 const app = express();
-app.use(cors({ credentials: true }))
 // app.use(cors({
 //   origin:
 //     [
@@ -28,6 +27,14 @@ app.use(cors({ credentials: true }))
 //     ],
 //   credentials: true,
 // }))
+
+app.use(cors({
+  origin:
+    [
+      'http://example.com',
+    ],
+  credentials: true,
+}))
 
 
 // Setup
